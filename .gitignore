@@ -1,0 +1,39 @@
+# Environment variables
+*.env
+.env
+.env.*
+!.env.example
+
+# Go build artifacts and binaries
+*.exe
+*.exe;
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+bin/
+dist/
+/api/main
+
+# Database / Redis persistent data directories
+data/
+
+# Log files
+*.log
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
