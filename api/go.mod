@@ -3,6 +3,7 @@ module github.com/akss4/url_shortner
 go 1.26.5
 
 require (
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gofiber/fiber/v2 v2.52.14
 	github.com/google/uuid v1.6.0

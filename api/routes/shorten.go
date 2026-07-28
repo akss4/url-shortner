@@ -7,6 +7,7 @@ import (
 
 	"github.com/akss4/url_shortner/database"
 	"github.com/akss4/url_shortner/helpers"
+	"github.com/asaskevich/govalidator"
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -79,7 +80,7 @@ func ShortenUrl(c *fiber.Ctx) error {
 	var id string
 
 	if body.CustomShort == "" {
-		id = uuid.New.String()[:6]
+		id = uuid.New().String()[:6]
 	} else {
 		id = body.CustomShort
 	}
