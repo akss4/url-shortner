@@ -1,9 +1,13 @@
 package routes
 
 import (
+	"os"
+	"strconv"
 	"time"
 
+	"github.com/akss4/url_shortner/database"
 	"github.com/akss4/url_shortner/helpers"
+	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -31,7 +35,23 @@ func ShortenUrl(c *fiber.Ctx) error {
 		})
 	}
 
-	//ratelimiting
+	//ratelimiting, redis gives two methods get and set
+
+	r2 := database.CreateClient(1)
+	defer r2.Close()
+	val, err := r2.Get(database.Ctx, c.IP()).Result()
+	if err == redis.Nil {
+		_ = r2.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err()
+	} else {
+		val, _ = r2.Get(database.Ctx, c.IP()).Result()
+		valInt, _ := strconv.Atoi(val)
+		if valInt <= 0 {
+			return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
+				"error": "You have exceeded the rate limit",
+			})
+		}
+
+	}
 
 	//check if input is actual url or not
 

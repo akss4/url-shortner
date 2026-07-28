@@ -1,10 +1,11 @@
-package api
+package main
 
 import (
 	"fmt"
 	"log"
 	"os"
 
+	"github.com/akss4/url_shortner/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
@@ -12,7 +13,7 @@ import (
 
 func setupRoutes(app *fiber.App) {
 
-	app.Get("/:url", routes.ResolveUrl)
+	app.Get("/:url", routes.ResolveURL)
 	app.Post("/api/v1", routes.ShortenUrl)
 
 }
